@@ -1,0 +1,69 @@
+cript started on 2022-10-20 14:11:13-04:00
+-------------------------------------------------------------------------------------------------------------------------------
+SET UP
+-------------------------------------------------------------------------------------------------------------------------------
+shivam@sjsu:~/worksheet6[shivam@sjsu worksheet6]$ mkdir PRODUCTS
+
+shivam@sjsu:~/worksheet6[shivam@sjsu worksheet6]$ grep -h "Shivaji: Hindu King in Islamic India" amazon_reviews_us_Books_v1_02.tsv > PRODUCTS/01995141261.txt
+
+-------------------------------------------------------------------------------------------------------------------------------
+1)
+-------------------------------------------------------------------------------------------------------------------------------
+
+shivam@sjsu:~/worksheet6[shivam@sjsu worksheet6]$ export DATETIME=`date "+%Y%m%d_%H%M%S"`
+
+shivam@sjsu:~/worksheet6[shivam@sjsu worksheet6]$ OUTDIR=out.$DATETIME
+
+shivam@sjsu:~/worksheet6[shivam@sjsu worksheet6]$ echo $DATETIME
+20221020_141147
+
+-------------------------------------------------------------------------------------------------------------------------------
+2)
+-------------------------------------------------------------------------------------------------------------------------------
+
+shivam@sjsu:~/worksheet6[shivam@sjsu worksheet6]$ cp PRODUCTS/0195141261.txt PRODUCTS/0195141261.$DATETIME.txt
+
+-------------------------------------------------------------------------------------------------------------------------------
+3)
+-------------------------------------------------------------------------------------------------------------------------------
+
+shivam@sjsu:~/worksheet6[shivam@sjsu worksheet6]$ echo -e "\t\t\t\t\t\t\t5\t\t\t\t\t\t\t" >> PRODUCTS/0195141261.$DATETIME.txt
+-------------------------------------------------------------------------------------------------------------------------------
+4)
+-------------------------------------------------------------------------------------------------------------------------------
+
+shivam@sjsu:~/worksheet6[shivam@sjsu worksheet6]$ cd PRODUCTS
+
+shivam@sjsu:~/worksheet6/PRODUCTS[shivam@sjsu PRODUCTS]$ ln -s 0195141261.20221020_141147.txt 0195141261.LATEST.txt
+
+shivam@sjsu:~/worksheet6/PRODUCTS[shivam@sjsu PRODUCTS]$ ls -l 0195141261.LATEST.txt
+
+lrwxrwxrwx 1 shivam shivam 30 Oct 20 14:12 0195141261.LATEST.txt -> 0195141261.20221020_141147.txt
+
+-------------------------------------------------------------------------------------------------------------------------------
+5)
+-------------------------------------------------------------------------------------------------------------------------------
+
+shivam@sjsu:~/worksheet6/PRODUCTS[shivam@sjsu PRODUCTS]$ vi 0195141261.AVGRATING.txt
+
+shivam@sjsu:~/worksheet6/PRODUCTS[shivam@sjsu PRODUCTS]$ vi avg.sh
+-- INSERT --
+awk -F "\t" '{ total += $8 } END { print total/NR }' /home/shivam/worksheet6/PRODUCTS/0195141261.LATEST.txt > /home/shivam/worksheet6/PRODUCTS/0195141261.AVGRATING.txt
+"avg.sh" [New] 2L, 169C written
+
+tshivam@sjsu:~/worksheet6/PRODUCTS[shivam@sjsu PRODUCTS]$ chmod 777 avg.sh
+
+shivam@sjsu:~/worksheet6/PRODUCTS[shivam@sjsu PRODUCTS]$ crontab -e
+"/tmp/crontab.Dlc3hM" 1L, * * * * * /home/shivam/worksheet6/PRODUCTS/avg.sh > /home/shivam/worksheet6/PRODUCTS/cron.log 2>&1
+written
+crontab: installing new crontab
+
+shivam@sjsu:~/worksheet6/PRODUCTS[shivam@sjsu PRODUCTS]$ crontab -l
+* * * * * /home/shivam/worksheet6/PRODUCTS/avg.sh > /home/shivam/worksheet6/PRODUCTS/cron.log 2>&1
+
+shivam@sjsu:~/worksheet6/PRODUCTS[shivam@sjsu PRODUCTS]$ exit
+
+Script done on 2022-10-20 14:13:37-04:00
+
+
+

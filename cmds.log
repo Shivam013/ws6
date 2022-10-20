@@ -1,0 +1,30 @@
+  1   script ws6.txt
+
+  2   mkdir PRODUCTS
+
+  3   grep -h "Shivaji: Hindu King in Islamic India" amazon_reviews_us_Books_v1_02.tsv > PRODUCTS/0195141261.txt
+
+  4   export DATETIME=`date "+%Y%m%d_%H%M%S"`
+
+  5   OUTDIR=out.$DATETIME
+
+  6   cp PRODUCTS/0195141261.txt PRODUCTS/0195141261.$DATETIME.txt
+
+  7   echo -e "\t\t\t\t\t\t\t5\t\t\t\t\t\t\t" >> PRODUCTS/0195141261.$DATETIME.txt
+
+  8   cd PRODUCTS
+
+  9   ln -s 0195141261.20221020_141147.txt 0195141261.LATEST.txt
+
+ 10   ls -l 0195141261.LATEST.txt
+
+ 11   vi 0195141261.AVGRATING.txt
+
+ 12   vi avg.sh
+
+ 13   chmod 777 avg.sh
+
+ 14   crontab -e
+
+ 15   crontab -l
+
